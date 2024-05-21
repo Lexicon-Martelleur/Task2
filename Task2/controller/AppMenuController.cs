@@ -1,8 +1,11 @@
-﻿using Task2.view;
+﻿using Task2.model;
+using Task2.view;
 
 namespace Task2.controller;
 
-internal class AppMenuController(AppMenuView view)
+internal class AppMenuController(
+    AppMenuView view,
+    MoviePriceService moviePriceService)
 {
     public void StartMainMenu()
     {
@@ -25,8 +28,8 @@ internal class AppMenuController(AppMenuView view)
     private bool HandleMenuSelection(string menuItem) => menuItem switch
     {
         "0" => ContinueMainMenu(HandleExit, false),
-        "1" => ContinueMainMenu(HandleYouthOrRetired, true),
-        "2" => ContinueMainMenu(HandlePriceCalculation, true),
+        "1" => ContinueMainMenu(HandleGetPriceOnePerson, true),
+        "2" => ContinueMainMenu(HandleGetPriceGroup, true),
         "3" => ContinueMainMenu(HandleRepeatTenTimes, true),
         "4" => ContinueMainMenu(HandleTheThirdWord, true),
         _ => ContinueMainMenu(HandleInvalidMenuSelection, true)
@@ -43,14 +46,61 @@ internal class AppMenuController(AppMenuView view)
         view.PrintGoodBye();
     }
 
-    private void HandleYouthOrRetired()
+    private void HandleGetPriceOnePerson()
     {
-        throw new NotImplementedException();
+        string ageInput = view.ReadAgeInput();
+        try
+        {
+            int age = int.Parse(ageInput);
+            MoviePrice price = moviePriceService.CalculateSwePrice(age);
+            view.PrintMoviePrice(price);
+        }
+        catch
+        {
+            view.PrintReadAgeFailure(ageInput);
+        }
     }
 
-    private void HandlePriceCalculation()
+    private void HandleGetPriceGroup()
     {
-        throw new NotImplementedException();
+        string groupSizeInput = view.ReadGropSizeInput();
+        try
+        {
+
+            int groupSize = int.Parse(groupSizeInput);
+            List<MoviePrice> moviePrices = [];
+            for (int i = 0; i < groupSize; i++)
+            {
+                MoviePrice price = HandleGetPriceOnePersonInGroup(i + 1);
+                moviePrices.Add(price);
+            }
+            (
+                double groupPrice,
+                string currencyName
+            ) = moviePriceService.CalculateSweGroupPrice(moviePrices);
+            view.PrintGroupPrice(groupPrice, currencyName);
+        }
+        catch
+        {
+            view.PrintReadAgeFailure(groupSizeInput);
+        }
+    }
+
+    private MoviePrice HandleGetPriceOnePersonInGroup(int groupItem)
+    {
+        bool withIndent = true;
+        string ageInput = view.ReadAgeInputGroup(groupItem);
+        try
+        {
+            int age = int.Parse(ageInput);
+            MoviePrice price = moviePriceService.CalculateSwePrice(age);
+            view.PrintMoviePrice(price, withIndent);
+            return price;
+        } catch
+        {
+            view.PrintReadAgeFailure(ageInput, withIndent);
+            return HandleGetPriceOnePersonInGroup(groupItem);
+        }
     }
 
     private void HandleRepeatTenTimes()

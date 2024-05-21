@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using System.Diagnostics;
+using Task2.constant;
+using Task2.model;
 
 namespace Task2.view;
 
-internal class AppMenuView
+internal class AppMenuView()
 {
     public void PrintWelcome()
     {
         Console.Clear();
-        Console.WriteLine($"""
+        ConsoleHelper.WriteLineCyan($"""
 
         👨‍💻👨‍💻👨‍💻 Welcome to task 2 menu! 👨‍💻👨‍💻👨‍💻
 
@@ -20,17 +20,17 @@ internal class AppMenuView
 
     public string ReadMenuSelection()
     {
-        Console.WriteLine("""
+        ConsoleHelper.WriteLineCyan("""
 
     Task 2 Menu
     ===========
         (0) Exit menu
-        (1) Youth or retired
-        (2) Calculate movie price
+        (1) Get movie price for one person 
+        (2) Get movie price for a group 
         (3) Repeat ten times
         (4) The third word
     """);
-        Console.Write("Select menu item: ");
+        ConsoleHelper.WriteCyan("Select menu item: ");
         var selectedMenu = Console.ReadLine();
         return GetSelectedMenuItem(selectedMenu ?? "");
     }
@@ -44,17 +44,70 @@ internal class AppMenuView
         _ => "-1"
     };
 
-    internal void PrintGoodBye()
+    internal string ReadAgeInput()
     {
-        Console.WriteLine("""
+        Console.Write($"\n➡️ Enter age : ");
+        return Console.ReadLine() ?? "";
+    }
 
-        👨‍💻👨‍💻👨‍💻 Goodbye from task 2 menu! 👨‍💻👨‍💻👨‍💻
+    internal void PrintMoviePrice(MoviePrice price, bool withIndent = false)
+    {
+        string prefix = ConstructIndentPrefix(withIndent);
+        Console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price)}");
+    }
 
-        """);
+    private string ConstructIndentPrefix(bool withIndent)
+    {
+        return withIndent ? "\t" : "";
+    } 
+
+    private string ConstructMoviePriceOutput(MoviePrice price) => price.AgeGroup switch
+    {
+        AgeGroup.YOUTH => $"Youth price: {price.Price}{price.CurrencyName}",
+        AgeGroup.SENIOR => $"Senior price: {price.Price}{price.CurrencyName}",
+        _ => $"Standard price: {price.Price}{price.CurrencyName}"
+    };
+
+    internal void PrintReadAgeFailure(string ageInput, bool withIndent = false)
+    {
+        string prefix = ConstructIndentPrefix(withIndent);
+        Console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age");
+    }
+
+    internal string ReadGropSizeInput()
+    {
+        Console.Write("\n➡️ Enter size of group (use numbers): ");
+        return Console.ReadLine() ?? "";
+    }
+
+    internal void PrintReadGroupSizeFailure(string groupSize)
+    {
+        Console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size");
+    }
+
+    internal string ReadAgeInputGroup(int groupItem)
+    {
+        string prefix = ConstructIndentPrefix(true);
+        Console.Write($"\n{prefix}➡️ Enter age (person {groupItem}): ");
+        return Console.ReadLine() ?? "";
+    }
+
+    internal void PrintGroupPrice(double groupPrice, string currencyName)
+    {
+        Console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
     }
 
     internal void PrintInvalidMenuSelection()
     {
         Console.WriteLine("\n⚠️ Not valid menu item");
+    }
+
+    internal void PrintGoodBye()
+    {
+        ConsoleHelper.WriteLineCyan("""
+
+        👨‍💻👨‍💻👨‍💻 Goodbye from task 2 menu! 👨‍💻👨‍💻👨‍💻
+
+        """);
     }
 }
