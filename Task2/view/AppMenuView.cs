@@ -68,7 +68,7 @@ internal class AppMenuView()
         _ => $"Standard price: {price.Price}{currencyName}"
     };
 
-    internal void PrintReadAgeFailure(string ageInput, bool withIndent = false)
+    internal void PrintAgeFailure(string ageInput, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
         Console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age");
@@ -80,7 +80,7 @@ internal class AppMenuView()
         return Console.ReadLine() ?? "";
     }
 
-    internal void PrintReadGroupSizeFailure(string groupSize)
+    internal void PrintGroupSizeFailure(string groupSize)
     {
         Console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size");
     }
@@ -95,6 +95,17 @@ internal class AppMenuView()
     internal void PrintGroupPrice(double groupPrice, string currencyName)
     {
         Console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
+    }
+
+    internal string ReadRepeatTenTimesText()
+    {
+        Console.Write("\n➡️ Enter text: ");
+        return Console.ReadLine() ?? "";
+    }
+
+    internal void WriteRepeatTenTimes(string text)
+    {    
+        Console.WriteLine(text);   
     }
 
     internal void PrintInvalidMenuSelection()

@@ -57,7 +57,7 @@ internal class AppMenuController(
         }
         catch
         {
-            view.PrintReadAgeFailure(ageInput);
+            view.PrintAgeFailure(ageInput);
         }
     }
 
@@ -79,7 +79,7 @@ internal class AppMenuController(
         }
         catch
         {
-            view.PrintReadAgeFailure(groupSizeInput);
+            view.PrintAgeFailure(groupSizeInput);
         }
     }
 
@@ -98,14 +98,20 @@ internal class AppMenuController(
             return price;
         } catch
         {
-            view.PrintReadAgeFailure(ageInput, withIndent);
+            view.PrintAgeFailure(ageInput, withIndent);
             return HandleGetPriceOnePersonInGroup(groupItem);
         }
     }
 
     private void HandleRepeatTenTimes()
     {
-        throw new NotImplementedException();
+        string text = view.ReadRepeatTenTimesText();
+        string textRepeated = $"({1}) {text}";
+        for (int i = 2; i <= 10; i++)
+        {
+            textRepeated += $" ({i}) {text}";
+        }
+        view.WriteRepeatTenTimes(textRepeated);
     }
 
     private void HandleTheThirdWord()

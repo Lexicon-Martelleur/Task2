@@ -34,4 +34,9 @@ internal class MoviePriceService(string currencyName)
     {
         return moviePrices.Aggregate(0d, (sum, next) => sum += next.Price);
     }
+
+    internal void IsValidGroupSize()
+    {
+
+    }
 }
