@@ -15,7 +15,7 @@ internal class MovieView(AppConsole console)
     internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"{prefix}✅ {ConstructMoviePriceOutput(price, currencyName)}");
+        console.WriteLine($"\n{prefix}✅ {ConstructMoviePriceOutput(price, currencyName)}");
     }
 
     private string ConstructIndentPrefix(bool withIndent)

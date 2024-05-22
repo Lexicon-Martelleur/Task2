@@ -11,7 +11,7 @@ public class AppConsole
 {
     public void ClearScreen()
     {
-        Console.Clear();
+        try { Console.Clear(); } catch { }
     }
 
     public void WriteLine(string msg)

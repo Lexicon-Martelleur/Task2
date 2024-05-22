@@ -12,7 +12,7 @@ internal class TextWizardView(AppConsole console)
 
     internal void WriteOkTextLine(string text)
     {
-        console.WriteLine($"✅ {text}");
+        console.WriteLine($"\n✅ {text}");
     }
 
     internal void WriteGetThirdWordFailure(string msg)

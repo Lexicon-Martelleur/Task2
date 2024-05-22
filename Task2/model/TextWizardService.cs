@@ -2,6 +2,10 @@
 
 internal class TextWizardService
 {
+    /// <summary>
+    /// Return the third word from a text.
+    /// </summary>
+    /// <exception cref="TextWizardException"></exception>
     internal string GetWordThree(string text)
     {
         int minWords = 3;
@@ -12,7 +16,17 @@ internal class TextWizardService
         }
         else
         {
-            throw new Exception($"Text must be {minWords} words or more");
+            throw new TextWizardException($"Text must be {minWords} words or more");
         }
+    }
+
+    internal string GetTextRepeatedly(string text, int times)
+    {
+        string textRepeated = $"({1}) {text}";
+        for (int i = 2; i <= 10; i++)
+        {
+            textRepeated += $" ({i}) {text}";
+        }
+        return textRepeated;
     }
 }

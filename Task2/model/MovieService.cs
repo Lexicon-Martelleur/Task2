@@ -6,12 +6,9 @@ internal class MovieService(string currencyName)
 {
     public string CurrencyName { get; } = currencyName;
 
-    internal MoviePrice CalculatePrice(int age)
+    internal MoviePrice CalculatePrice(uint age)
     {
-        if (age < 0) {
-            throw new ArgumentOutOfRangeException(nameof(age), "Not a valid age");
-        }
-        else if (age < 20)
+        if (age < 20)
         {
             return new MoviePrice(80, MoiveAgeGroup.YOUTH);
         }
@@ -30,12 +27,16 @@ internal class MovieService(string currencyName)
         return moviePrices.Aggregate(0d, (sum, next) => sum += next.Price);
     }
 
-    internal void IsValidGroupSize(int groupSize)
+    /// <summary>
+    /// Check if group is a valid size
+    /// </summary>
+    /// <exception cref="MovieException"></exception>
+    internal void IsValidGroupSize(uint groupSize)
     {
-        int minGroupSize = 0;
-        if (groupSize <= minGroupSize)
+        int minGroupSize = 1;
+        if (groupSize < minGroupSize)
         {
-            throw new Exception($"Group size {groupSize} is not valid");
+            throw new MovieException($"Group size {groupSize} is not valid");
         }
     }
 }

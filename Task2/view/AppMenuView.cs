@@ -24,8 +24,8 @@ internal class AppMenuView(AppConsole console)
         (0) Exit menu
         (1) Get movie price for one person 
         (2) Get movie price for a group 
-        (3) Repeat ten times
-        (4) The third word
+        (3) Repeat text ten times
+        (4) Print the third word
     """, IO.ConsoleColor.CYAN);
         console.Write("Select menu item: ", IO.ConsoleColor.CYAN);
         var selectedMenu = console.ReadLine();

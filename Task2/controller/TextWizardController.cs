@@ -8,11 +8,7 @@ internal class TextWizardController(TextWizardView view, TextWizardService servi
     public void HandleRepeatTenTimes()
     {
         string text = view.ReadTextFromUser();
-        string textRepeated = $"({1}) {text}";
-        for (int i = 2; i <= 10; i++)
-        {
-            textRepeated += $" ({i}) {text}";
-        }
+        string textRepeated = service.GetTextRepeatedly(text, 10);
         view.WriteOkTextLine(textRepeated);
     }
 
@@ -24,7 +20,7 @@ internal class TextWizardController(TextWizardView view, TextWizardService servi
             string thirdWord = service.GetWordThree(text);
             view.WriteOkTextLine(thirdWord);
         }
-        catch (Exception ex)
+        catch (TextWizardException ex)
         {
             view.WriteGetThirdWordFailure(ex.Message);
             HandleTheThirdWord();

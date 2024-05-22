@@ -10,7 +10,7 @@ internal class MovieController(MovieView view, MovieService service)
         string ageInput = view.ReadAgeInput();
         try
         {
-            int age = int.Parse(ageInput);
+            uint age = uint.Parse(ageInput);
             MoviePrice price = service.CalculatePrice(age);
             view.PrintMoviePrice(price, service.CurrencyName);
         }
@@ -26,7 +26,7 @@ internal class MovieController(MovieView view, MovieService service)
         string groupSizeInput = view.ReadGroupSizeInput();
         try
         {
-            int groupSize = int.Parse(groupSizeInput);
+            uint groupSize = uint.Parse(groupSizeInput);
             service.IsValidGroupSize(groupSize);
             HandleGetPriceGroup(groupSize);
         }
@@ -37,7 +37,7 @@ internal class MovieController(MovieView view, MovieService service)
         }
     }
 
-    private void HandleGetPriceGroup(int groupSize)
+    private void HandleGetPriceGroup(uint groupSize)
     {
         List<MoviePrice> moviePrices = [];
         for (int i = 0; i < groupSize; i++)
@@ -49,16 +49,13 @@ internal class MovieController(MovieView view, MovieService service)
         view.PrintGroupPrice(groupPrice, service.CurrencyName);
     }
 
-    //TODO! Add quit possibility
-    //  1) Incorrect number of people quit and repeat
-    //  2) Incorrect number of people but calculate price
     private MoviePrice HandleGetPriceOnePersonInGroup(int groupItem)
     {
         bool withIndent = true;
         string ageInput = view.ReadAgeInputGroup(groupItem);
         try
         {
-            int age = int.Parse(ageInput);
+            uint age = uint.Parse(ageInput);
             MoviePrice price = service.CalculatePrice(age);
             view.PrintMoviePrice(price, service.CurrencyName, withIndent);
             return price;
