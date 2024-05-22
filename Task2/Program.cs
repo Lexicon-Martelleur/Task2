@@ -20,4 +20,5 @@ AppMenuController appMenuController = new(
     movieController,
     textWizardController
 );
+
 appMenuController.StartMainMenu();
