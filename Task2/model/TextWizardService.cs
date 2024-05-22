@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+﻿namespace Task2.model;
 
-namespace Task2.model;
-
-internal class TextService
+internal class TextWizardService
 {
     internal string GetWordThree(string text)
     {

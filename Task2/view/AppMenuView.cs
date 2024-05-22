@@ -1,8 +1,4 @@
-﻿
-
-using System.Diagnostics;
-using Task2.constant;
-using Task2.model;
+﻿using Task2.constant;
 using Task2.IO;
 
 namespace Task2.view;
@@ -45,75 +41,6 @@ internal class AppMenuView(AppConsole console)
         MainMenu.PRINT_THIRD_WORD => selectedMenu,
         _ => MainMenu.INVALID
     };
-
-    internal string ReadAgeInput()
-    {
-        console.Write($"\n➡️ Enter age : ");
-        return console.ReadLine();
-    }
-
-    internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
-    {
-        string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price, currencyName)}");
-    }
-
-    private string ConstructIndentPrefix(bool withIndent)
-    {
-        return withIndent ? "\t" : "";
-    } 
-
-    private string ConstructMoviePriceOutput(MoviePrice price, string currencyName) => price.AgeGroup switch
-    {
-        MoiveAgeGroup.YOUTH => $"Youth price: {price.Price}{currencyName}",
-        MoiveAgeGroup.SENIOR => $"Senior price: {price.Price}{currencyName}",
-        _ => $"Standard price: {price.Price}{currencyName}"
-    };
-
-    internal void PrintAgeFailure(string ageInput, bool withIndent = false)
-    {
-        string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age", IO.ConsoleColor.RED);
-    }
-
-    internal string ReadGropSizeInput()
-    {
-        console.Write("\n➡️ Enter size of group (use numbers): ");
-        return console.ReadLine();
-    }
-
-    internal void PrintGroupSizeFailure(string groupSize)
-    {
-        console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size", IO.ConsoleColor.RED);
-    }
-
-    internal string ReadAgeInputGroup(int groupItem)
-    {
-        string prefix = ConstructIndentPrefix(true);
-        console.Write($"\n{prefix}➡️ Enter age (person {groupItem}): ");
-        return console.ReadLine();
-    }
-
-    internal void PrintGroupPrice(double groupPrice, string currencyName)
-    {
-        console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
-    }
-
-    internal string ReadTextFromUser()
-    {
-        console.Write("\n➡️ Enter text: ");
-        return console.ReadLine();
-    }
-
-    internal void WriteTextLine(string text)
-    {    
-        console.WriteLine(text);   
-    }
-
-    internal void WriteGetThirdWordFailure(string msg)
-    {
-        console.WriteLine($"\n⚠️ {msg}", IO.ConsoleColor.RED);
-    }
 
     internal void PrintInvalidMenuSelection()
     {

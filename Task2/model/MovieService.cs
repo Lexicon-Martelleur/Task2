@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task2.constant;
-using static System.Net.Mime.MediaTypeNames;
+﻿using Task2.constant;
 
 namespace Task2.model;
 
-internal class MoviePriceService(string currencyName)
+internal class MovieService(string currencyName)
 {
     public string CurrencyName { get; } = currencyName;
 
