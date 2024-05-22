@@ -2,7 +2,6 @@
 using Task2.IO;
 using Task2.model;
 using Task2.view;
-using Task2.IO;
 
 
 const string sweCurrencyName = "kr";
