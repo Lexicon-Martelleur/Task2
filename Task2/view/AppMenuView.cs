@@ -3,24 +3,25 @@
 using System.Diagnostics;
 using Task2.constant;
 using Task2.model;
+using Task2.IO;
 
 namespace Task2.view;
 
-internal class AppMenuView()
+internal class AppMenuView(AppConsole console)
 {
     public void PrintWelcome()
     {
-        Console.Clear();
-        ConsoleHelper.WriteLineCyan($"""
+        console.ClearScreen();
+        console.WriteLine($"""
 
         👨‍💻👨‍💻👨‍💻 Welcome to task 2 menu! 👨‍💻👨‍💻👨‍💻
 
-        """);
+        """, IO.ConsoleColor.CYAN);
     }
 
     public string ReadMenuSelection()
     {
-        ConsoleHelper.WriteLineCyan("""
+        console.WriteLine("""
 
     Task 2 Menu
     ===========
@@ -29,31 +30,32 @@ internal class AppMenuView()
         (2) Get movie price for a group 
         (3) Repeat ten times
         (4) The third word
-    """);
-        ConsoleHelper.WriteCyan("Select menu item: ");
-        var selectedMenu = Console.ReadLine();
-        return GetSelectedMenuItem(selectedMenu ?? "");
+    """, IO.ConsoleColor.CYAN);
+        console.Write("Select menu item: ", IO.ConsoleColor.CYAN);
+        var selectedMenu = console.ReadLine();
+        return GetSelectedMenuItem(selectedMenu);
     }
 
     private string GetSelectedMenuItem(string selectedMenu) => selectedMenu switch
     {
-        "0" => "0",
-        "1" => "1",
-        "2" => "2",
-        "3" => "3",
-        _ => "-1"
+        MainMenu.EXIT or
+        MainMenu.PRICE_ONE_PERSON or
+        MainMenu.PRICE_ONE_GROUP or
+        MainMenu.REPEAT_TEN_TIMES or
+        MainMenu.PRINT_THIRD_WORD => selectedMenu,
+        _ => MainMenu.INVALID
     };
 
     internal string ReadAgeInput()
     {
-        Console.Write($"\n➡️ Enter age : ");
-        return Console.ReadLine() ?? "";
+        console.Write($"\n➡️ Enter age : ");
+        return console.ReadLine();
     }
 
     internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        Console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price, currencyName)}");
+        console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price, currencyName)}");
     }
 
     private string ConstructIndentPrefix(bool withIndent)
@@ -71,54 +73,59 @@ internal class AppMenuView()
     internal void PrintAgeFailure(string ageInput, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        Console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age");
+        console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age", IO.ConsoleColor.RED);
     }
 
     internal string ReadGropSizeInput()
     {
-        Console.Write("\n➡️ Enter size of group (use numbers): ");
-        return Console.ReadLine() ?? "";
+        console.Write("\n➡️ Enter size of group (use numbers): ");
+        return console.ReadLine();
     }
 
     internal void PrintGroupSizeFailure(string groupSize)
     {
-        Console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size");
+        console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size", IO.ConsoleColor.RED);
     }
 
     internal string ReadAgeInputGroup(int groupItem)
     {
         string prefix = ConstructIndentPrefix(true);
-        Console.Write($"\n{prefix}➡️ Enter age (person {groupItem}): ");
-        return Console.ReadLine() ?? "";
+        console.Write($"\n{prefix}➡️ Enter age (person {groupItem}): ");
+        return console.ReadLine();
     }
 
     internal void PrintGroupPrice(double groupPrice, string currencyName)
     {
-        Console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
+        console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
     }
 
-    internal string ReadRepeatTenTimesText()
+    internal string ReadTextFromUser()
     {
-        Console.Write("\n➡️ Enter text: ");
-        return Console.ReadLine() ?? "";
+        console.Write("\n➡️ Enter text: ");
+        return console.ReadLine();
     }
 
-    internal void WriteRepeatTenTimes(string text)
+    internal void WriteTextLine(string text)
     {    
-        Console.WriteLine(text);   
+        console.WriteLine(text);   
+    }
+
+    internal void WriteGetThirdWordFailure(string msg)
+    {
+        console.WriteLine($"\n⚠️ {msg}", IO.ConsoleColor.RED);
     }
 
     internal void PrintInvalidMenuSelection()
     {
-        Console.WriteLine("\n⚠️ Not valid menu item");
+        console.WriteLine("\n⚠️ Not valid menu item", IO.ConsoleColor.RED);
     }
 
     internal void PrintGoodBye()
     {
-        ConsoleHelper.WriteLineCyan("""
+        console.WriteLine("""
 
         👨‍💻👨‍💻👨‍💻 Goodbye from task 2 menu! 👨‍💻👨‍💻👨‍💻
 
-        """);
+        """, IO.ConsoleColor.CYAN);
     }
 }

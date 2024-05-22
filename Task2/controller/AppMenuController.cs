@@ -1,11 +1,13 @@
-﻿using Task2.model;
+﻿using Task2.constant;
+using Task2.model;
 using Task2.view;
 
 namespace Task2.controller;
 
 internal class AppMenuController(
     AppMenuView view,
-    MoviePriceService moviePriceService)
+    MoviePriceService moviePriceService,
+    TextService textService)
 {
     public void StartMainMenu()
     {
@@ -27,11 +29,11 @@ internal class AppMenuController(
 
     private bool HandleMenuSelection(string menuItem) => menuItem switch
     {
-        "0" => ContinueMainMenu(HandleExit, false),
-        "1" => ContinueMainMenu(HandleGetPriceOnePerson, true),
-        "2" => ContinueMainMenu(HandleGetPriceGroup, true),
-        "3" => ContinueMainMenu(HandleRepeatTenTimes, true),
-        "4" => ContinueMainMenu(HandleTheThirdWord, true),
+        MainMenu.EXIT => ContinueMainMenu(HandleExit, false),
+        MainMenu.PRICE_ONE_PERSON => ContinueMainMenu(HandleGetPriceOnePerson, true),
+        MainMenu.PRICE_ONE_GROUP => ContinueMainMenu(HandleGetPriceGroup, true),
+        MainMenu.REPEAT_TEN_TIMES => ContinueMainMenu(HandleRepeatTenTimes, true),
+        MainMenu.PRINT_THIRD_WORD => ContinueMainMenu(HandleTheThirdWord, true),
         _ => ContinueMainMenu(HandleInvalidMenuSelection, true)
     };
 
@@ -44,6 +46,7 @@ internal class AppMenuController(
     private void HandleExit()
     {
         view.PrintGoodBye();
+        Environment.Exit(Environment.ExitCode = 0);
     }
 
     private void HandleGetPriceOnePerson()
@@ -66,21 +69,26 @@ internal class AppMenuController(
         string groupSizeInput = view.ReadGropSizeInput();
         try
         {
-
             int groupSize = int.Parse(groupSizeInput);
-            List<MoviePrice> moviePrices = [];
-            for (int i = 0; i < groupSize; i++)
-            {
-                MoviePrice price = HandleGetPriceOnePersonInGroup(i + 1);
-                moviePrices.Add(price);
-            }
-            double groupPrice = moviePriceService.CalculateGroupPrice(moviePrices);
-            view.PrintGroupPrice(groupPrice, moviePriceService.CurrencyName);
+            moviePriceService.IsValidGroupSize(groupSize);
+            HandleGetPriceGroup(groupSize);
         }
         catch
         {
-            view.PrintAgeFailure(groupSizeInput);
+            view.PrintGroupSizeFailure(groupSizeInput);
         }
+    }
+
+    private void HandleGetPriceGroup(int groupSize)
+    {
+        List<MoviePrice> moviePrices = [];
+        for (int i = 0; i < groupSize; i++)
+        {
+            MoviePrice price = HandleGetPriceOnePersonInGroup(i + 1);
+            moviePrices.Add(price);
+        }
+        double groupPrice = moviePriceService.CalculateGroupPrice(moviePrices);
+        view.PrintGroupPrice(groupPrice, moviePriceService.CurrencyName);
     }
 
     //TODO! Add quit possibility
@@ -105,18 +113,27 @@ internal class AppMenuController(
 
     private void HandleRepeatTenTimes()
     {
-        string text = view.ReadRepeatTenTimesText();
+        string text = view.ReadTextFromUser();
         string textRepeated = $"({1}) {text}";
         for (int i = 2; i <= 10; i++)
         {
             textRepeated += $" ({i}) {text}";
         }
-        view.WriteRepeatTenTimes(textRepeated);
+        view.WriteTextLine(textRepeated);
     }
 
     private void HandleTheThirdWord()
     {
-        throw new NotImplementedException();
+        string text = view.ReadTextFromUser();
+        try
+        {
+            string thirdWord = textService.GetWordThree(text);
+            view.WriteTextLine(thirdWord);
+        }
+        catch (Exception ex)
+        {
+            view.WriteGetThirdWordFailure(ex.Message);
+        }
     }
 
     private void HandleInvalidMenuSelection()

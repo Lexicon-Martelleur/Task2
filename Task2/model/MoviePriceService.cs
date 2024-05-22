@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task2.constant;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Task2.model;
 
@@ -35,8 +36,12 @@ internal class MoviePriceService(string currencyName)
         return moviePrices.Aggregate(0d, (sum, next) => sum += next.Price);
     }
 
-    internal void IsValidGroupSize()
+    internal void IsValidGroupSize(int groupSize)
     {
-
+        int minGroupSize = 0;
+        if (groupSize <= minGroupSize)
+        {
+            throw new Exception($"Group size {groupSize} is not valid");
+        }
     }
 }
