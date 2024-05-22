@@ -15,7 +15,7 @@ internal class MovieView(AppConsole console)
     internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price, currencyName)}");
+        console.WriteLine($"{prefix}✅ {ConstructMoviePriceOutput(price, currencyName)}");
     }
 
     private string ConstructIndentPrefix(bool withIndent)
@@ -56,6 +56,6 @@ internal class MovieView(AppConsole console)
 
     internal void PrintGroupPrice(double groupPrice, string currencyName)
     {
-        console.WriteLine($"\nPrice group: {groupPrice}{currencyName}");
+        console.WriteLine($"\n✅ Price group: {groupPrice}{currencyName}");
     }
 }

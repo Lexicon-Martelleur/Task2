@@ -17,6 +17,7 @@ internal class MovieController(MovieView view, MovieService service)
         catch
         {
             view.PrintAgeFailure(ageInput);
+            HandleGetPriceOnePerson();
         }
     }
 
@@ -32,6 +33,7 @@ internal class MovieController(MovieView view, MovieService service)
         catch
         {
             view.PrintGroupSizeFailure(groupSizeInput);
+            HandleGetPriceGroup();
         }
     }
 
@@ -49,7 +51,7 @@ internal class MovieController(MovieView view, MovieService service)
 
     //TODO! Add quit possibility
     //  1) Incorrect number of people quit and repeat
-    //  2) INcorrecet number of people but calculate price
+    //  2) Incorrect number of people but calculate price
     private MoviePrice HandleGetPriceOnePersonInGroup(int groupItem)
     {
         bool withIndent = true;

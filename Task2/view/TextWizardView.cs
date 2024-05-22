@@ -10,9 +10,9 @@ internal class TextWizardView(AppConsole console)
         return console.ReadLine();
     }
 
-    internal void WriteTextLine(string text)
+    internal void WriteOkTextLine(string text)
     {
-        console.WriteLine(text);
+        console.WriteLine($"✅ {text}");
     }
 
     internal void WriteGetThirdWordFailure(string msg)

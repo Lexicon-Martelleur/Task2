@@ -13,7 +13,7 @@ internal class TextWizardController(TextWizardView view, TextWizardService servi
         {
             textRepeated += $" ({i}) {text}";
         }
-        view.WriteTextLine(textRepeated);
+        view.WriteOkTextLine(textRepeated);
     }
 
     internal void HandleTheThirdWord()
@@ -22,11 +22,12 @@ internal class TextWizardController(TextWizardView view, TextWizardService servi
         try
         {
             string thirdWord = service.GetWordThree(text);
-            view.WriteTextLine(thirdWord);
+            view.WriteOkTextLine(thirdWord);
         }
         catch (Exception ex)
         {
             view.WriteGetThirdWordFailure(ex.Message);
+            HandleTheThirdWord();
         }
     }
 }
