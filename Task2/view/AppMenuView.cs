@@ -50,10 +50,10 @@ internal class AppMenuView()
         return Console.ReadLine() ?? "";
     }
 
-    internal void PrintMoviePrice(MoviePrice price, bool withIndent = false)
+    internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        Console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price)}");
+        Console.WriteLine($"{prefix}{ConstructMoviePriceOutput(price, currencyName)}");
     }
 
     private string ConstructIndentPrefix(bool withIndent)
@@ -61,11 +61,11 @@ internal class AppMenuView()
         return withIndent ? "\t" : "";
     } 
 
-    private string ConstructMoviePriceOutput(MoviePrice price) => price.AgeGroup switch
+    private string ConstructMoviePriceOutput(MoviePrice price, string currencyName) => price.AgeGroup switch
     {
-        AgeGroup.YOUTH => $"Youth price: {price.Price}{price.CurrencyName}",
-        AgeGroup.SENIOR => $"Senior price: {price.Price}{price.CurrencyName}",
-        _ => $"Standard price: {price.Price}{price.CurrencyName}"
+        MoiveAgeGroup.YOUTH => $"Youth price: {price.Price}{currencyName}",
+        MoiveAgeGroup.SENIOR => $"Senior price: {price.Price}{currencyName}",
+        _ => $"Standard price: {price.Price}{currencyName}"
     };
 
     internal void PrintReadAgeFailure(string ageInput, bool withIndent = false)

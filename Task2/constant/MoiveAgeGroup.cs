@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2.constant;
 
-internal enum AgeGroup
+internal enum MoiveAgeGroup
 {
     YOUTH,
     SENIOR,

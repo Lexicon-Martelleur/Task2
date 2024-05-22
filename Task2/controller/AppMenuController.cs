@@ -52,8 +52,8 @@ internal class AppMenuController(
         try
         {
             int age = int.Parse(ageInput);
-            MoviePrice price = moviePriceService.CalculateSwePrice(age);
-            view.PrintMoviePrice(price);
+            MoviePrice price = moviePriceService.CalculatePrice(age);
+            view.PrintMoviePrice(price, moviePriceService.CurrencyName);
         }
         catch
         {
@@ -74,11 +74,8 @@ internal class AppMenuController(
                 MoviePrice price = HandleGetPriceOnePersonInGroup(i + 1);
                 moviePrices.Add(price);
             }
-            (
-                double groupPrice,
-                string currencyName
-            ) = moviePriceService.CalculateSweGroupPrice(moviePrices);
-            view.PrintGroupPrice(groupPrice, currencyName);
+            double groupPrice = moviePriceService.CalculateGroupPrice(moviePrices);
+            view.PrintGroupPrice(groupPrice, moviePriceService.CurrencyName);
         }
         catch
         {
@@ -86,6 +83,9 @@ internal class AppMenuController(
         }
     }
 
+    //TODO! Add quit possibility
+    //  1) Incorrect number of people quit and repeat
+    //  2) INcorrecet number of people but calculate price
     private MoviePrice HandleGetPriceOnePersonInGroup(int groupItem)
     {
         bool withIndent = true;
@@ -93,8 +93,8 @@ internal class AppMenuController(
         try
         {
             int age = int.Parse(ageInput);
-            MoviePrice price = moviePriceService.CalculateSwePrice(age);
-            view.PrintMoviePrice(price, withIndent);
+            MoviePrice price = moviePriceService.CalculatePrice(age);
+            view.PrintMoviePrice(price, moviePriceService.CurrencyName, withIndent);
             return price;
         } catch
         {

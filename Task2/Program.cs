@@ -2,7 +2,8 @@
 using Task2.model;
 using Task2.view;
 
-MoviePriceService moviePriceService = new();
+const string sweCurrencyName = "kr";
+MoviePriceService moviePriceService = new(sweCurrencyName);
 AppMenuView appView = new();
 AppMenuController app = new(appView, moviePriceService);
 app.StartMainMenu();

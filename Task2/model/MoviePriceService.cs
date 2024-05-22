@@ -7,33 +7,31 @@ using Task2.constant;
 
 namespace Task2.model;
 
-internal class MoviePriceService
+internal class MoviePriceService(string currencyName)
 {
-    private readonly string sweCurrencyName = "kr";
-    internal MoviePrice CalculateSwePrice(int age)
+    public string CurrencyName { get; } = currencyName;
+
+    internal MoviePrice CalculatePrice(int age)
     {
         if (age < 0) {
             throw new ArgumentOutOfRangeException(nameof(age), "Not a valid age");
         }
         else if (age < 20)
         {
-            return new MoviePrice(80, sweCurrencyName, AgeGroup.YOUTH);
+            return new MoviePrice(80, MoiveAgeGroup.YOUTH);
         }
         else if (age > 64)
         {
-            return new MoviePrice(90, sweCurrencyName, AgeGroup.SENIOR);
+            return new MoviePrice(90, MoiveAgeGroup.SENIOR);
         }
         else
         {
-            return new MoviePrice(120, sweCurrencyName, AgeGroup.ADULT);
+            return new MoviePrice(120, MoiveAgeGroup.ADULT);
         }
     }
 
-    internal (double groupPrice, string currencyName) CalculateSweGroupPrice(List<MoviePrice> moviePrices)
+    internal double CalculateGroupPrice(List<MoviePrice> moviePrices)
     {
-        return (
-            groupPrice: moviePrices.Aggregate(0d, (sum, next) => sum += next.Price),
-            currencyName: sweCurrencyName
-        );
+        return moviePrices.Aggregate(0d, (sum, next) => sum += next.Price);
     }
 }
