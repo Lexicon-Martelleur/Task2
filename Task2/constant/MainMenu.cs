@@ -1,6 +1,9 @@
 ﻿namespace Task2.constant;
 
-internal class MainMenu
+/// <summary>
+/// A class used for constant main menu use cases. 
+/// </summary>
+internal static class MainMenu
 {
     internal const string EXIT = "0";
     internal const string PRICE_ONE_PERSON = "1";

@@ -4,6 +4,12 @@ using Task2.model;
 
 namespace Task2.view;
 
+/// <summary>
+/// A UI class for reading and writing movie related tasks.
+/// </summary>
+/// <param name="console">
+/// A <see cref="AppConsole"/> for IO console operations.
+/// </param>
 internal class MovieView(AppConsole console)
 {
     internal string ReadAgeInput()
@@ -25,15 +31,15 @@ internal class MovieView(AppConsole console)
 
     private string ConstructMoviePriceOutput(MoviePrice price, string currencyName) => price.AgeGroup switch
     {
-        MoiveAgeGroup.YOUTH => $"Youth price: {price.Price}{currencyName}",
-        MoiveAgeGroup.SENIOR => $"Senior price: {price.Price}{currencyName}",
+        MovieAgeGroup.YOUTH => $"Youth price: {price.Price}{currencyName}",
+        MovieAgeGroup.SENIOR => $"Senior price: {price.Price}{currencyName}",
         _ => $"Standard price: {price.Price}{currencyName}"
     };
 
     internal void PrintAgeFailure(string ageInput, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age", IO.ConsoleColor.RED);
+        console.WriteLine($"\n{prefix}⚠️ Age '{ageInput}' is not a valid age", IO.ColorPalette.RED);
     }
 
     internal string ReadGroupSizeInput()
@@ -44,7 +50,7 @@ internal class MovieView(AppConsole console)
 
     internal void PrintGroupSizeFailure(string groupSize)
     {
-        console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size", IO.ConsoleColor.RED);
+        console.WriteLine($"\n⚠️ Group size '{groupSize}' is not a valid size", IO.ColorPalette.RED);
     }
 
     internal string ReadAgeInputGroup(int groupItem)

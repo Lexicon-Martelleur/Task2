@@ -1,5 +1,8 @@
 ﻿namespace Task2.model;
 
+/// <summary>
+/// A service class used for implementing text related use cases.
+/// </summary>
 internal class TextWizardService
 {
     /// <summary>

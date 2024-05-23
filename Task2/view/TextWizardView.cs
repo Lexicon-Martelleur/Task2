@@ -2,6 +2,12 @@
 
 namespace Task2.view;
 
+/// <summary>
+/// A UI class for reading and writing text wizard related tasks.
+/// </summary>
+/// <param name="console">
+/// A <see cref="AppConsole"/> for IO console operations.
+/// </param>
 internal class TextWizardView(AppConsole console)
 {
     internal string ReadTextFromUser()
@@ -17,6 +23,6 @@ internal class TextWizardView(AppConsole console)
 
     internal void WriteGetThirdWordFailure(string msg)
     {
-        console.WriteLine($"\n⚠️ {msg}", IO.ConsoleColor.RED);
+        console.WriteLine($"\n⚠️ {msg}", IO.ColorPalette.RED);
     }
 }

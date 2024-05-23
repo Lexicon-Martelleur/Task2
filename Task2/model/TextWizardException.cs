@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task2.model;
 
+/// <summary>
+/// A custom exception class used by <see cref="TextWizardService"/>. 
+/// </summary>
 internal class TextWizardException : Exception
 {
     internal TextWizardException() { }

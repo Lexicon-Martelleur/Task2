@@ -3,6 +3,15 @@ using Task2.view;
 
 namespace Task2.controller;
 
+/// <summary>
+/// A class for controlling and parsing IO data related to movie tasks.
+/// </summary>
+/// <param name="view">
+/// A <see cref="MovieView"/> used for reading and writing movie tasks.
+/// </param>
+/// <param name="service">
+/// A <see cref="MovieService"/> used for movie related tasks.
+/// </param>
 internal class MovieController(MovieView view, MovieService service)
 {
     internal void HandleGetPriceOnePerson()

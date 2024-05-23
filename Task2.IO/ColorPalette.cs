@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Task2.IO;
 
-public enum ConsoleColor
+/// <summary>
+/// A enumerated value type used for application color palette.
+/// </summary>
+public enum ColorPalette
 {
     CYAN,
     RED

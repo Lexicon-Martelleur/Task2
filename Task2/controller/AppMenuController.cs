@@ -3,6 +3,18 @@ using Task2.view;
 
 namespace Task2.controller;
 
+/// <summary>
+/// A class for controlling and parsing IO data related to the main menu.
+/// </summary>
+/// <param name="view">
+/// A <see cref="AppMenuView"/> used for reading and writing menu tasks.
+/// </param>
+/// <param name="movieController">
+/// A <see cref="MovieController"/> used for movie menu tasks.
+/// </param>
+/// <param name="textWizardController">
+/// A <see cref="TextWizardController"/> used for text wizard tasks.
+/// </param>
 internal class AppMenuController(
     AppMenuView view,
     MovieController movieController,

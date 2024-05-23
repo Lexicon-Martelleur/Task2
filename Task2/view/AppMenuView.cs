@@ -3,6 +3,12 @@ using Task2.IO;
 
 namespace Task2.view;
 
+/// <summary>
+/// A UI Class for reading and writing main menu operations.
+/// </summary>
+/// <param name="console">
+/// A <see cref="AppConsole"/> for IO console operations.
+/// </param>
 internal class AppMenuView(AppConsole console)
 {
     public void PrintWelcome()
@@ -12,7 +18,7 @@ internal class AppMenuView(AppConsole console)
 
         👨‍💻👨‍💻👨‍💻 Welcome to task 2 menu! 👨‍💻👨‍💻👨‍💻
 
-        """, IO.ConsoleColor.CYAN);
+        """, IO.ColorPalette.CYAN);
     }
 
     public string ReadMenuSelection()
@@ -26,8 +32,8 @@ internal class AppMenuView(AppConsole console)
         (2) Get movie price for a group 
         (3) Repeat text ten times
         (4) Print the third word
-    """, IO.ConsoleColor.CYAN);
-        console.Write("Select menu item: ", IO.ConsoleColor.CYAN);
+    """, IO.ColorPalette.CYAN);
+        console.Write("Select menu item: ", IO.ColorPalette.CYAN);
         var selectedMenu = console.ReadLine();
         return GetSelectedMenuItem(selectedMenu);
     }
@@ -44,7 +50,7 @@ internal class AppMenuView(AppConsole console)
 
     internal void PrintInvalidMenuSelection()
     {
-        console.WriteLine("\n⚠️ Not valid menu item", IO.ConsoleColor.RED);
+        console.WriteLine("\n⚠️ Not valid menu item", IO.ColorPalette.RED);
     }
 
     internal void PrintGoodBye()
@@ -53,6 +59,6 @@ internal class AppMenuView(AppConsole console)
 
         👨‍💻👨‍💻👨‍💻 Goodbye from task 2 menu! 👨‍💻👨‍💻👨‍💻
 
-        """, IO.ConsoleColor.CYAN);
+        """, IO.ColorPalette.CYAN);
     }
 }

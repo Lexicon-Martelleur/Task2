@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task2.IO;
 
-namespace Task2.IO;
-
+/// <summary>
+/// A utility class used to wrap console operations
+/// used by the application.
+/// </summary>
 public class AppConsole
 {
     public void ClearScreen()
@@ -29,7 +26,7 @@ public class AppConsole
         return Console.ReadLine() ?? "";
     }
 
-    public void WriteLine(string msg, ConsoleColor color)
+    public void WriteLine(string msg, ColorPalette color)
     {
         System.ConsoleColor original = Console.ForegroundColor;
         Console.ForegroundColor = MapColor(color);
@@ -37,7 +34,7 @@ public class AppConsole
         Console.ForegroundColor = original;
     }
 
-    public void Write(string msg, ConsoleColor color)
+    public void Write(string msg, ColorPalette color)
     {
         System.ConsoleColor original = Console.ForegroundColor;
         Console.ForegroundColor = MapColor(color);
@@ -45,10 +42,10 @@ public class AppConsole
         Console.ForegroundColor = original;
     }
 
-    private System.ConsoleColor MapColor(ConsoleColor color) => color switch
+    private System.ConsoleColor MapColor(ColorPalette color) => color switch
     {
-        ConsoleColor.CYAN => System.ConsoleColor.Cyan,
-        ConsoleColor.RED => System.ConsoleColor.Red,
+        ColorPalette.CYAN => System.ConsoleColor.Cyan,
+        ColorPalette.RED => System.ConsoleColor.Red,
         _ => System.ConsoleColor.White
     };
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task2.model;
 
-namespace Task2.model;
-
+/// <summary>
+/// A custom exception class used by <see cref="MovieService"/>. 
+/// </summary>
 internal class MovieException : Exception
 {
     internal MovieException() { }

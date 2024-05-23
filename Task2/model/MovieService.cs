@@ -2,6 +2,9 @@
 
 namespace Task2.model;
 
+/// <summary>
+/// A service class used for implementing movie related use cases.
+/// </summary>
 internal class MovieService(string currencyName)
 {
     public string CurrencyName { get; } = currencyName;
@@ -10,15 +13,15 @@ internal class MovieService(string currencyName)
     {
         if (age < 20)
         {
-            return new MoviePrice(80, MoiveAgeGroup.YOUTH);
+            return new MoviePrice(80, MovieAgeGroup.YOUTH);
         }
         else if (age > 64)
         {
-            return new MoviePrice(90, MoiveAgeGroup.SENIOR);
+            return new MoviePrice(90, MovieAgeGroup.SENIOR);
         }
         else
         {
-            return new MoviePrice(120, MoiveAgeGroup.ADULT);
+            return new MoviePrice(120, MovieAgeGroup.ADULT);
         }
     }
 
@@ -28,7 +31,7 @@ internal class MovieService(string currencyName)
     }
 
     /// <summary>
-    /// Check if group is a valid size
+    /// Check if group is of a valid size.
     /// </summary>
     /// <exception cref="MovieException"></exception>
     internal void IsValidGroupSize(uint groupSize)

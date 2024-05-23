@@ -1,24 +1,10 @@
 ﻿using Task2.controller;
-using Task2.IO;
-using Task2.model;
-using Task2.view;
+using Task2.factory;
 
-AppConsole console = new();
+/// <summary>
+/// Task 2 console application entry point.
+/// </summary>
 
-const string sweCurrencyName = "kr";
-MovieView movieView = new(console);
-MovieService movieService = new(sweCurrencyName);
-MovieController movieController = new(movieView, movieService);
-
-TextWizardView textWizardView = new(console);
-TextWizardService textWizardService = new();
-TextWizardController textWizardController = new(textWizardView, textWizardService);
-
-AppMenuView appMenuView = new(console);
-AppMenuController appMenuController = new(
-    appMenuView,
-    movieController,
-    textWizardController
-);
-
-appMenuController.StartMainMenu();
+MainMenuFactory factory = new();
+AppMenuController app = factory.CreateDefaultMainMenu();
+app.StartMainMenu();
