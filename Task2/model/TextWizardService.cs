@@ -10,6 +10,7 @@ internal class TextWizardService
     {
         int minWords = 3;
         string[] words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        
         if (words.Length >= minWords)
         {
             return words[2];
@@ -23,7 +24,7 @@ internal class TextWizardService
     internal string GetTextRepeatedly(string text, int times)
     {
         string textRepeated = $"({1}) {text}";
-        for (int i = 2; i <= 10; i++)
+        for (int i = 2; i <= times; i++)
         {
             textRepeated += $" ({i}) {text}";
         }

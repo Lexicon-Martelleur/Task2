@@ -12,35 +12,31 @@ internal class AppMenuController(
     public void StartMainMenu()
     {
         view.PrintWelcome();
-        bool useMenu = true;
         do
         {
             try
             {
                 string menuItem = view.ReadMenuSelection();
-                useMenu = HandleMenuSelection(menuItem);
+                HandleMenuSelection(menuItem);
             }
             catch
             {
-                useMenu = Continue(HandleInvalidMenuSelection, true);
+                HandleInvalidMenuSelection();
             }
-        } while (useMenu);
+        } while (true);
     }
 
-    private bool HandleMenuSelection(string menuItem) => menuItem switch
+    private void HandleMenuSelection(string menuItem)
     {
-        MainMenu.EXIT => Continue(HandleExit, false),
-        MainMenu.PRICE_ONE_PERSON => Continue(movieController.HandleGetPriceOnePerson, true),
-        MainMenu.PRICE_ONE_GROUP => Continue(movieController.HandleGetPriceGroup, true),
-        MainMenu.REPEAT_TEN_TIMES => Continue(textWizardController.HandleRepeatTenTimes, true),
-        MainMenu.PRINT_THIRD_WORD => Continue(textWizardController.HandleTheThirdWord, true),
-        _ => Continue(HandleInvalidMenuSelection, true)
-    };
-
-    private bool Continue(Action action, bool exitMenu)
-    {
-        action();
-        return exitMenu;
+        switch (menuItem)
+        {
+            case MainMenu.EXIT: HandleExit(); break;
+            case MainMenu.PRICE_ONE_PERSON: movieController.HandleGetPriceOnePerson(); break;
+            case MainMenu.PRICE_ONE_GROUP: movieController.HandleGetPriceGroup(); break;
+            case MainMenu.REPEAT_TEN_TIMES: textWizardController.HandleRepeatTenTimes(); break;
+            case MainMenu.PRINT_THIRD_WORD: textWizardController.HandleTheThirdWord(); break;
+            default: HandleInvalidMenuSelection(); break;
+        }
     }
 
     private void HandleExit()
