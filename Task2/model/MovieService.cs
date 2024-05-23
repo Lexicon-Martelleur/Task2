@@ -9,25 +9,33 @@ internal class MovieService(string currencyName)
 {
     public string CurrencyName { get; } = currencyName;
 
-    internal MoviePrice CalculatePrice(uint age)
+    internal MovieTicket CalculatePrice(uint age)
     {
-        if (age < 20)
+        if (age <= (uint)MovieAgeGroup.CHILD)
         {
-            return new MoviePrice(80, MovieAgeGroup.YOUTH);
+            return new MovieTicket(MovieAgePrice.CHILD, MovieAgeGroup.CHILD);
         }
-        else if (age > 64)
+        else if (age <= (uint)MovieAgeGroup.YOUTH)
         {
-            return new MoviePrice(90, MovieAgeGroup.SENIOR);
+            return new MovieTicket(MovieAgePrice.YOUTH, MovieAgeGroup.YOUTH);
+        }
+        else if (age <= (uint)MovieAgeGroup.ADULT)
+        {
+            return new MovieTicket(MovieAgePrice.ADULT, MovieAgeGroup.ADULT);
+        }
+        else if (age <= (uint)MovieAgeGroup.SENIOR)
+        {
+            return new MovieTicket(MovieAgePrice.SENIOR, MovieAgeGroup.SENIOR);
         }
         else
         {
-            return new MoviePrice(120, MovieAgeGroup.ADULT);
+            return new MovieTicket(MovieAgePrice.SENIOR_OLD, MovieAgeGroup.SENIOR_OLD);
         }
     }
 
-    internal double CalculateGroupPrice(List<MoviePrice> moviePrices)
+    internal double CalculateGroupPrice(List<MovieTicket> tickets)
     {
-        return moviePrices.Aggregate(0d, (sum, next) => sum += next.Price);
+        return tickets.Aggregate(0d, (sum, next) => sum += next.Price);
     }
 
     /// <summary>

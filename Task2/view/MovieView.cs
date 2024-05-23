@@ -18,10 +18,10 @@ internal class MovieView(AppConsole console)
         return console.ReadLine();
     }
 
-    internal void PrintMoviePrice(MoviePrice price, string currencyName, bool withIndent = false)
+    internal void PrintMoviePrice(MovieTicket ticket, string currencyName, bool withIndent = false)
     {
         string prefix = ConstructIndentPrefix(withIndent);
-        console.WriteLine($"\n{prefix}✅ {ConstructMoviePriceOutput(price, currencyName)}");
+        console.WriteLine($"\n{prefix}✅ {ConstructMoviePriceOutput(ticket, currencyName)}");
     }
 
     private string ConstructIndentPrefix(bool withIndent)
@@ -29,11 +29,13 @@ internal class MovieView(AppConsole console)
         return withIndent ? "\t" : "";
     }
 
-    private string ConstructMoviePriceOutput(MoviePrice price, string currencyName) => price.AgeGroup switch
+    private string ConstructMoviePriceOutput(MovieTicket ticket, string currencyName) => ticket.AgeGroup switch
     {
-        MovieAgeGroup.YOUTH => $"Youth price: {price.Price}{currencyName}",
-        MovieAgeGroup.SENIOR => $"Senior price: {price.Price}{currencyName}",
-        _ => $"Standard price: {price.Price}{currencyName}"
+        MovieAgeGroup.CHILD => $"Child price: {ticket.Price}{currencyName}",
+        MovieAgeGroup.YOUTH => $"Youth price: {ticket.Price}{currencyName}",
+        MovieAgeGroup.SENIOR => $"Senor price: {ticket.Price}{currencyName}",
+        MovieAgeGroup.SENIOR_OLD => $"Senior (over 100 years old) price: {ticket.Price}{currencyName}",
+        _ => $"Standard price: {ticket.Price}{currencyName}"
     };
 
     internal void PrintAgeFailure(string ageInput, bool withIndent = false)

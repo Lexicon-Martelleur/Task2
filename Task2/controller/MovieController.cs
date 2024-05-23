@@ -20,7 +20,7 @@ internal class MovieController(MovieView view, MovieService service)
         try
         {
             uint age = uint.Parse(ageInput);
-            MoviePrice price = service.CalculatePrice(age);
+            MovieTicket price = service.CalculatePrice(age);
             view.PrintMoviePrice(price, service.CurrencyName);
         }
         catch
@@ -48,26 +48,26 @@ internal class MovieController(MovieView view, MovieService service)
 
     private void HandleGetPriceGroup(uint groupSize)
     {
-        List<MoviePrice> moviePrices = [];
+        List<MovieTicket> movieTickets = [];
         for (int i = 0; i < groupSize; i++)
         {
-            MoviePrice price = HandleGetPriceOnePersonInGroup(i + 1);
-            moviePrices.Add(price);
+            MovieTicket price = HandleGetPriceOnePersonInGroup(i + 1);
+            movieTickets.Add(price);
         }
-        double groupPrice = service.CalculateGroupPrice(moviePrices);
+        double groupPrice = service.CalculateGroupPrice(movieTickets);
         view.PrintGroupPrice(groupPrice, service.CurrencyName);
     }
 
-    private MoviePrice HandleGetPriceOnePersonInGroup(int groupItem)
+    private MovieTicket HandleGetPriceOnePersonInGroup(int groupItem)
     {
         bool withIndent = true;
         string ageInput = view.ReadAgeInputGroup(groupItem);
         try
         {
             uint age = uint.Parse(ageInput);
-            MoviePrice price = service.CalculatePrice(age);
-            view.PrintMoviePrice(price, service.CurrencyName, withIndent);
-            return price;
+            MovieTicket ticket = service.CalculatePrice(age);
+            view.PrintMoviePrice(ticket, service.CurrencyName, withIndent);
+            return ticket;
         }
         catch
         {

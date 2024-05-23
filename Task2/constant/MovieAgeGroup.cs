@@ -5,7 +5,9 @@
 /// </summary>
 internal enum MovieAgeGroup
 {
-    YOUTH,
-    SENIOR,
-    ADULT
+    CHILD = 4, 
+    YOUTH = 19,
+    ADULT = 64,
+    SENIOR = 99,
+    SENIOR_OLD = -1
 }
